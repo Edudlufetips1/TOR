@@ -7,7 +7,7 @@ Baseball is arguably the most data-driven and optimized professional sport; howe
 Metric Definition:
 TOR is a granular performance metric that replaces the outcome-based binary (Hit/Out) with a process-driven valuation. Rather than evaluating a plate appearance as a single terminal event, TOR treats each At-Bat as a dynamic data series, specifically focusing on Non-BIP (Ball In Play) value.
 
-By capturing and weighting individual pitch-level attributes—specifically pitch-sequence depth, exit velocity on non-terminal contact (foul balls), and contact quality on outs—TOR isolates a hitter's skill from external variables like defensive range and park factors. The result is a high-resolution 'Quality of Appearance' score that more accurately isolates a player's intrinsic offensive proficiency and predictive performance ceiling.
+By capturing and weighting individual pitch-level attributes—specifically pitch-sequence depth, exit velocity on non-terminal contact (foul balls), and contact quality on outs—TOR isolates a hitter's skill from external variables like defensive range and park factors. The result is a high-resolution contact quality predctor that more accurately isolates a player's intrinsic offensive proficiency and predictive performance ceiling.
 
 ## The Core Philosophy
 In traditional baseball stats, a 115-mph line drive directly at a shortstop is an "Out" (0.000), while a 60-mph "bloop" that falls for a hit is a "Single" (1.000). 
