@@ -1,13 +1,16 @@
-# TOR: True Offensive Rating ⚾
-
 **True Offensive Rating (TOR)** 
 
-Baseball is one of the most data-driven professional sports, yet traditional offensive metrics suffer from a critical flaw: they overemphasize binary plate appearance outcomes (Hit/Out) while ignoring the latent value in pitch-level process data. By treating every out as a zero-sum failure, conventional analytics overlook key indicators—such as deep-count leverage and high-velocity foul contact—that better reflect a hitter's true skill and future performance potential. 
+Baseball is arguably the most data-driven and optimized professional sport; however, traditional offensive metrics possess a fundamental flaw: they over-evaluate the binary outcomes of individual plate appearances while largely neglecting the significant latent value found in pitch-level data. By treating every 'out' as a zero-sum failure, current analytics fail to account for the process-driven indicators—such as deep-count leverage and high-velocity contact on non-terminal pitches—that provide a more statistically significant preview of a hitter's true performance ceiling.
 
-TOR is a granular, process-driven metric that redefines offensive evaluation. Instead of focusing solely on terminal outcomes, TOR analyzes each at-bat as a dynamic sequence of pitches, emphasizing Non-BIP (Ball In Play) value.  By weighting pitch-level attributes—count depth, exit velocity on foul balls, and contact quality on outs—TOR isolates a hitter’s intrinsic offensive ability, minimizing noise from defense, luck, and park effects. The result is a higher-resolution predictor of offensive proficiency and performance ceiling.
+Metric Definition:
+TOR is a granular performance metric that replaces the outcome-based binary (Hit/Out) with a process-driven valuation. Rather than evaluating a plate appearance as a single terminal event, TOR treats each At-Bat as a dynamic data series, specifically focusing on Non-BIP (Ball In Play) value.
+
+By capturing and weighting individual pitch-level attributes—specifically pitch-sequence depth, exit velocity on non-terminal contact (foul balls), and contact quality on outs—TOR isolates a hitter's skill from external variables like defensive range and park factors. The result is a high-resolution contact quality predctor that more accurately isolates a player's intrinsic offensive proficiency and predictive performance ceiling.
 
 ## The Core Philosophy
-In traditional baseball statistics, a 115-mph line drive caught by a shortstop counts as an "Out" (0.000), while a 60-mph bloop single counts as a "Hit" (1.000). This binary framework persists across most advanced metrics like OBP, OPS, and wRC+, which, while improved, remain fundamentally outcome-based. 
+In traditional baseball stats, a 115-mph line drive directly at a shortstop is an "Out" (0.000), while a 60-mph blooper that falls for a hit or a well-placed bunt is a "single" (1.000). 
+
+Crucially, this binary evaluation persists across nearly all industry-standard advanced metrics—including OBP, OPS, wRC+, etc. While these stats offer better weighted outcomes, they remain inherently results-based almost entirely; thus largely ignoring the nuanced skill data generated during the course of the plate appearance.
 
 **TOR** aims to bridge this gap by analyzing Statcast data at the pitch level to reward:
 *   **Deep Counts:** High pitches-per-plate-appearance.
