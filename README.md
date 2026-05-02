@@ -1,4 +1,4 @@
-**True Offensive Rating (TOR)** 
+## True Offensive Rating (TOR) 
 
 Baseball is arguably the most data-driven and optimized professional sport; however, traditional offensive metrics possess a fundamental flaw: they over-evaluate the binary outcomes of individual plate appearances while largely neglecting the significant latent value found in pitch-level data. By treating every 'out' as a zero-sum failure, current analytics fail to account for the process-driven indicators—such as deep-count leverage and high-velocity contact on non-terminal pitches—that provide a more statistically significant preview of a hitter's true performance ceiling.
 
