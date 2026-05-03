@@ -40,21 +40,18 @@ class AtBat:
 
     def count_management_score(self):
         score = 0
+        milestone30 = False
+        milestone31 = False
         for pitch in self.pitches:
             if pitch.balls > pitch.strikes:
                 score += 0.5
             elif pitch.strikes > pitch.balls:
                 score -= 0.5
-    
         # Loop 2 — milestone bonuses, did they reach leverage counts
-        milestone30 = False
-        milestone31 = False
-        
-        for pitch in self.pitches:
             if pitch.balls == 3 and pitch.strikes == 0 and not milestone30:
                 score += 1.0
                 milestone30 = True
-            if pitch.balls == 3 and pitch.strikes == 1 and not milestone30 and not milestone31:
+            elif pitch.balls == 3 and pitch.strikes == 1 and not milestone30 and not milestone31:
                 score += 0.5
                 milestone31 = True
         return score            
@@ -71,8 +68,20 @@ class AtBat:
         }
         return outcomes.get(self.final_outcome, 0)
         
+    def is_valid_ab(self):
+        # List of outcomes that provide zero skill data
+        invalid_outcomes = ["hit_by_pitch", "intentional_walk"]
+        
+        if self.final_outcome in invalid_outcomes:
+            return False
+        if len(self.pitches) == 0:
+            return False
+        return True
 
     def calculate_tor(self):
+        if not self.is_valid_ab():
+            return 0
+        
         score = 50
         score += self.pitch_count_score()
         score += self.quality_contact_score()

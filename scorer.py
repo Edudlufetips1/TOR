@@ -1,8 +1,11 @@
 from at_bat import AtBat
 
-def player_tor(list_of_atbats) -> float:
-    # Player's average TOR for all at bats
-    scores = [ab.calculate_tor() for ab in list_of_atbats]
+def player_tor(list_of_atbats):
+    scores = [
+        ab.calculate_tor() 
+        for ab in list_of_atbats
+        if ab.is_valid_ab()  # ← only score valid ABs!
+    ]
     return sum(scores) / len(scores) if scores else 0
 
 def group_by_player(all_at_bats):
