@@ -56,7 +56,8 @@ class AtBat:
                 milestone30 = True
             if pitch.balls == 3 and pitch.strikes == 1 and not milestone30 and not milestone31:
                 score += 0.5
-                milestone31 = True            
+                milestone31 = True
+        return score            
 
     def outcome_score(self):
         outcomes = {
