@@ -1,6 +1,6 @@
 # True Offensive Rating (TOR)
 
-Traditional offensive metrics evaluate plate appearances as terminal events. A hit, an out, a strikeout — each assigned a fixed value determined entirely by result. While this framework has proven analytically useful, it systematically discards the pitch-level process data from which offensive outcomes emerge.
+In baseball, traditional offensive metrics evaluate plate appearances as terminal events. A hit, an out, a strikeout — each assigned a fixed value determined entirely by result. While this framework has proven analytically useful, it systematically discards the pitch-level process data from which offensive outcomes emerge.
 
 TOR proposes a complementary framework: decomposing each plate appearance into its underlying sequence of pitch-level events and evaluating offensive quality along both process and outcome dimensions.
 
