@@ -12,11 +12,33 @@ class AtBat:
     def add_pitch(self, pitch):
         self.pitches.append(pitch)
 
+    def pitch_count_score(self):
+        n = len(self.pitches)
+        if n >= 6:
+            return 2
+        elif n >= 4:
+            return 1
+        elif n ==3 :
+            return 0
+        else:
+            return -1
+
+    def quality_contact_score(self):
+       score = 0     
+       for pitch in self.pitches:
+            if pitch.description == "foul" or pitch.description == "in_play":
+                if pitch.exit_velo > 105:
+                    score += 3
+                elif pitch.exit_velo > 95:
+                    score += 1.5
+                elif pitch.exit_velo < 80:
+                    score += -1
+        return score
+    
     def calculate_tor(self):
-        """
-        The 'Secret Sauce' formula. 
-        Starts at a base of 50 and adjusts based on process.
-        """
         score = 50 
+        score += self.pitch_count_score()
+        score += self.quality_contact_score()
+        score += self.count_management_score()
         return score
         

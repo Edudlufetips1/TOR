@@ -1,8 +1,9 @@
 from at_bat import AtBat
-    
-def get_player_tor(player_name, plate_appearances):
-    pass
-    # ONE player → their season data dict
+
+def player_tor(player_name, list_of_atbats) -> float:
+    # Player's average TOR for all at bats
+    scores = [calculate_tor_for_atbat(ab) for ab in list_of_atbats]
+    return sum(scores) / len(scores) if scores else 0
     
 def rank_players(all_at_bats):
     # This function asks each AtBat for its score
