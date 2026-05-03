@@ -4,7 +4,7 @@ from at_bat import AtBat, Pitch
 def main():
     print("Welcome to TOR: True Offensive Rating")
 
-    ab = AtBat("Aaron Judge")
+    ab = AtBat("Aaron Judge", "home_run")
 
     ab.add_pitch(Pitch(1, 0, "ball", 1, 0))
     ab.add_pitch(Pitch(2, 98, "foul", 1, 1))

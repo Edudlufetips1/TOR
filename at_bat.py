@@ -7,8 +7,9 @@ class Pitch:
         self.strikes = strikes
 
 class AtBat:
-    def __init__(self, player_name):
+    def __init__(self, player_name, final_outcome):
         self.player_name = player_name
+        self.final_outcome = final_outcome
         self.pitches = []
 
     def add_pitch(self, pitch):
@@ -41,23 +42,39 @@ class AtBat:
         score = 0
         for pitch in self.pitches:
             if pitch.balls > pitch.strikes:
-                score += 0
+                score += 0.5
             elif pitch.strikes > pitch.balls:
-                score -= 0
+                score -= 0.5
     
         # Loop 2 — milestone bonuses, did they reach leverage counts
+        milestone30 = False
+        milestone31 = False
+        
         for pitch in self.pitches:
-            if pitch.balls == 3 and pitch.strikes == 0:
-                score += 0  # 3-0, pitcher in trouble
-            elif pitch.balls == 3 and pitch.strikes == 1:
-                score += 0  # 3-1, still hitter friendly
-            elif pitch.balls == 0 and pitch.strikes == 2:
-                score -= 0  # 0-2, pitcher dominating  # placeholder so Python doesn't crash
-        return score
+            if pitch.balls == 3 and pitch.strikes == 0 and not milestone30:
+                score += 1.0
+                milestone30 = True
+            if pitch.balls == 3 and pitch.strikes == 1 and not milestone30 and not milestone31:
+                score += 0.5
+                milestone31 = True            
+
+    def outcome_score(self):
+        outcomes = {
+            "home_run": 8,
+            "triple": 4,
+            "double": 2.5,
+            "single": 1,
+            "walk": 0.5,
+            "field_out": -1,
+            "strikeout": -3
+        }
+        return outcomes.get(self.final_outcome, 0)
+        
 
     def calculate_tor(self):
         score = 50
         score += self.pitch_count_score()
         score += self.quality_contact_score()
         score += self.count_management_score()
+        score += self.outcome_score()
         return score
