@@ -1,21 +1,23 @@
 from at_bat import AtBat, Pitch
-
+from fetcher import load_statcast_csv, build_at_bats
+from scorer import player_tor, rank_players
 
 def main():
     print("Welcome to TOR: True Offensive Rating")
+    df = load_statcast_csv("statcast_data_2026.csv")
 
-    ab = AtBat("Aaron Judge", "home_run")
+    players = df['player_name'].unique()
+    
+    all_at_bats = []
+    for player in players:
+        at_bats = build_at_bats(df, player)
+        all_at_bats.extend(at_bats)
 
-    ab.add_pitch(Pitch(1, 0, "ball", 1, 0))
-    ab.add_pitch(Pitch(2, 98, "foul", 1, 1))
-    ab.add_pitch(Pitch(3, 107, "in_play", 1, 2))
-
-    print(f"Player: {ab.player_name}")
-    print("Pitch Count Score:", ab.pitch_count_score())
-    print("Quality Contact Score:", ab.quality_contact_score())
-    print("Count Management Score:", ab.count_management_score())
-    print("TOR:", ab.calculate_tor())
-
+    print("\n--- PLAYER RANKINGS ---")
+    leaderboard = rank_players(all_at_bats)
+    
+    for i, (name, score) in enumerate(leaderboard, 1):
+        print(f"{i}. {name}: {score:.2f}")
 
 if __name__ == "__main__":
     main()
