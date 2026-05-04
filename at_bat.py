@@ -31,11 +31,11 @@ class AtBat:
         for pitch in self.pitches:
             if pitch.description in ("foul", "in_play"):
                 if pitch.exit_velo > 105:
-                    score += 30
+                    score += 8
                 elif pitch.exit_velo > 95:
-                    score += 14
+                    score += 4
                 elif pitch.exit_velo < 80:
-                    score -= 5
+                    score -= 2
         return score
 
     def count_management_score(self):

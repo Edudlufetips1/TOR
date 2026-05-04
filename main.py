@@ -1,29 +1,34 @@
 from at_bat import AtBat, Pitch
 from fetcher import load_statcast_csv, build_at_bats, fetch_statcast_api
 from scorer import player_tor, rank_players
-from pybaseball import statcast
 import glob
 import pandas as pd 
 
-DATA_SOURCE = "CSV" 
+DATA_SOURCE = "API" 
 
 def main():
     print("Welcome to TOR: True Offensive Rating")
-    all_files = glob.glob("statcast_data/*.csv")
-    if not all_files:
-        print("Wait! I couldn't find any CSV files in the 'statcast_data' folder.")
-        print("Check the folder name and make sure the files are inside it!")
+    if DATA_SOURCE == "CSV":
+        all_files = glob.glob("statcast_data/*.csv")
+        df_list = [load_statcast_csv(f) for f in all_files]    
+        df = pd.concat(df_list, ignore_index=True)
+    
+    elif DATA_SOURCE == "API":
+        print("Fetching data from Statcast API (this may take a minute)...")
+        df = fetch_statcast_api('2026-04-22', '2026-05-03')
+        
+    else:
+        # This handles the "Possibly Unbound" problem!
+        print(f"Error: Invalid DATA_SOURCE '{DATA_SOURCE}'")
         return 
-    df_list = [load_statcast_csv(f) for f in all_files]    
-    df = pd.concat(df_list, ignore_index=True)
     print(f"Total rows in CSV: {len(df)}")
 
-    # DIAGNOSTIC: top 5 players by row count
+        # DIAGNOSTIC: Let's see the top 5 players by row count
     print("Top players by pitch count:")
-    print(df['player_name'].value_counts().head(5))
+    print(df['batter_name'].value_counts().head(5))
     print("Example names from the file:")
-    print(df['player_name'].unique()[:10])
-    players = df['player_name'].unique()
+    print(df['batter_name'].unique()[:10])
+    players = df['batter_name'].unique()
     
     all_at_bats = []
     for player in players:

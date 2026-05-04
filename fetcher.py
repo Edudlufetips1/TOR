@@ -1,9 +1,15 @@
 import pandas as pd
 from at_bat import AtBat, Pitch 
-from pybaseball import statcast
+from pybaseball import statcast, playerid_reverse_lookup
 
 def fetch_statcast_api(start_date, end_date):
     df = statcast(start_dt=start_date, end_dt=end_date)
+    batter_ids = df['batter'].unique().tolist()
+    batter_info = playerid_reverse_lookup(batter_ids, key_type='mlbam')
+    batter_info['batter_name'] = batter_info['name_last'] + ', ' + batter_info['name_first']
+    batter_info = batter_info.rename(columns={'key_mlbam': 'batter'})
+    df = df.merge(batter_info[['batter', 'batter_name']], on='batter', how='left')
+    
     return df
 
 def load_statcast_csv(filepath):
@@ -23,12 +29,12 @@ def load_statcast_csv(filepath):
     df = df[cols_we_need]
     return df
 
-def build_at_bats(df, player_name):
-    player_df = df[df['player_name'] == player_name]
+def build_at_bats(df, batter_name):
+    player_df = df[df['batter_name'] == batter_name]
     at_bats = []
     for (game_id, ab_num), group in player_df.groupby(['game_pk', 'at_bat_number']):
         final_outcome = group['events'].dropna().iloc[-1] if not group['events'].dropna().empty else "unknown"
-        current_ab = AtBat(player_name, final_outcome)
+        current_ab = AtBat(batter_name, final_outcome)
         
         # 3. Loop through every pitch in this group
         for _, row in group.iterrows():
