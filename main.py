@@ -1,19 +1,22 @@
 from at_bat import AtBat, Pitch
-from fetcher import load_statcast_csv, build_at_bats
+from fetcher import load_statcast_csv, build_at_bats, fetch_statcast_api
 from scorer import player_tor, rank_players
+from pybaseball import statcast
 import glob
 import pandas as pd 
 
+DATA_SOURCE = "CSV" 
+
 def main():
     print("Welcome to TOR: True Offensive Rating")
-    all_files = glob.glob("statcast_data/*.csv")
-    if not all_files:
-        print("Wait! I couldn't find any CSV files in the 'statcast_data' folder.")
-        print("Check the folder name and make sure the files are inside it!")
-        return # This stops the crash!   
-        # Load and combine them all into one giant DataFrame
-    df_list = [load_statcast_csv(f) for f in all_files]    
-    df = pd.concat(df_list, ignore_index=True)
+    if DATA_SOURCE == "CSV":
+        all_files = glob.glob("statcast_data/*.csv")
+        df_list = [load_statcast_csv(f) for f in all_files]    
+        df = pd.concat(df_list, ignore_index=True)
+    
+    elif DATA_SOURCE == "API":
+        print("Fetching data from Statcast API (this may take a minute)...")
+        df = statcast(start_dt='2024-04-01', end_dt='2024-04-07')
     print(f"Total rows in CSV: {len(df)}")
 
         # DIAGNOSTIC: Let's see the top 5 players by row count

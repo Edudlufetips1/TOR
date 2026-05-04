@@ -1,5 +1,10 @@
 import pandas as pd
 from at_bat import AtBat, Pitch 
+from pybaseball import statcast
+
+def fetch_statcast_api(start_date, end_date):
+    df = statcast(start_dt=start_date, end_dt=end_date)
+    return df
 
 def load_statcast_csv(filepath):
     df = pd.read_csv(filepath)
