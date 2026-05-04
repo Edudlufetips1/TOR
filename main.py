@@ -9,17 +9,16 @@ DATA_SOURCE = "CSV"
 
 def main():
     print("Welcome to TOR: True Offensive Rating")
-    if DATA_SOURCE == "CSV":
-        all_files = glob.glob("statcast_data/*.csv")
-        df_list = [load_statcast_csv(f) for f in all_files]    
-        df = pd.concat(df_list, ignore_index=True)
-    
-    elif DATA_SOURCE == "API":
-        print("Fetching data from Statcast API (this may take a minute)...")
-        df = statcast(start_dt='2024-04-01', end_dt='2024-04-07')
+    all_files = glob.glob("statcast_data/*.csv")
+    if not all_files:
+        print("Wait! I couldn't find any CSV files in the 'statcast_data' folder.")
+        print("Check the folder name and make sure the files are inside it!")
+        return 
+    df_list = [load_statcast_csv(f) for f in all_files]    
+    df = pd.concat(df_list, ignore_index=True)
     print(f"Total rows in CSV: {len(df)}")
 
-        # DIAGNOSTIC: Let's see the top 5 players by row count
+    # DIAGNOSTIC: top 5 players by row count
     print("Top players by pitch count:")
     print(df['player_name'].value_counts().head(5))
     print("Example names from the file:")
@@ -34,7 +33,7 @@ def main():
     print("\n--- PLAYER RANKINGS ---")
     leaderboard = rank_players(all_at_bats)
     
-    for i, (name, score) in enumerate(leaderboard[:100], 1):
+    for i, (name, score) in enumerate(leaderboard[:50], 1):
         print(f"{i}. {name}: {score:.2f}")
 
 if __name__ == "__main__":
