@@ -1,11 +1,26 @@
 from at_bat import AtBat, Pitch
 from fetcher import load_statcast_csv, build_at_bats
 from scorer import player_tor, rank_players
+import glob
+import pandas as pd 
 
 def main():
     print("Welcome to TOR: True Offensive Rating")
-    df = load_statcast_csv("statcast_data_2026.csv")
+    all_files = glob.glob("statcast_data/*.csv")
+    if not all_files:
+        print("Wait! I couldn't find any CSV files in the 'statcast_data' folder.")
+        print("Check the folder name and make sure the files are inside it!")
+        return # This stops the crash!   
+        # Load and combine them all into one giant DataFrame
+    df_list = [load_statcast_csv(f) for f in all_files]    
+    df = pd.concat(df_list, ignore_index=True)
+    print(f"Total rows in CSV: {len(df)}")
 
+        # DIAGNOSTIC: Let's see the top 5 players by row count
+    print("Top players by pitch count:")
+    print(df['player_name'].value_counts().head(5))
+    print("Example names from the file:")
+    print(df['player_name'].unique()[:10])
     players = df['player_name'].unique()
     
     all_at_bats = []
@@ -16,7 +31,7 @@ def main():
     print("\n--- PLAYER RANKINGS ---")
     leaderboard = rank_players(all_at_bats)
     
-    for i, (name, score) in enumerate(leaderboard, 1):
+    for i, (name, score) in enumerate(leaderboard[:100], 1):
         print(f"{i}. {name}: {score:.2f}")
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ from at_bat import AtBat, Pitch
 
 def load_statcast_csv(filepath):
     df = pd.read_csv(filepath)
+    df['player_name'] = df['player_name'].str.strip()
     cols_we_need = [
     'player_name',
     'at_bat_number', 
@@ -11,7 +12,8 @@ def load_statcast_csv(filepath):
     'description',
     'events',
     'balls',
-    'strikes'
+    'strikes',
+    'game_pk'
     ]
     df = df[cols_we_need]
     return df
@@ -19,7 +21,7 @@ def load_statcast_csv(filepath):
 def build_at_bats(df, player_name):
     player_df = df[df['player_name'] == player_name]
     at_bats = []
-    for ab_num, group in player_df.groupby('at_bat_number'):
+    for (game_id, ab_num), group in player_df.groupby(['game_pk', 'at_bat_number']):
         final_outcome = group['events'].dropna().iloc[-1] if not group['events'].dropna().empty else "unknown"
         current_ab = AtBat(player_name, final_outcome)
         
