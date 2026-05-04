@@ -30,10 +30,20 @@ class AtBat:
         score = 0
         for pitch in self.pitches:
             if pitch.description in ("foul", "in_play"):
-                if pitch.exit_velo > 105:
+                if pitch.exit_velo > 120:
+                    score += 85
+                elif pitch.exit_velo > 116:
+                    score += 50
+                elif pitch.exit_velo > 111:
+                    score += 27
+                elif pitch.exit_velo > 106:
+                    score += 17
+                elif pitch.exit_velo > 101:
                     score += 8
                 elif pitch.exit_velo > 95:
-                    score += 4
+                    score += 3
+                elif pitch.exit_velo > 80:
+                    score += 0
                 elif pitch.exit_velo < 80:
                     score -= 2
         return score
@@ -83,8 +93,8 @@ class AtBat:
             return 0
         
         score = 50
-        score += self.pitch_count_score()
-        score += self.quality_contact_score()
-        score += self.count_management_score()
-        score += self.outcome_score()
+        score += self.pitch_count_score() *1.2
+        score += self.quality_contact_score() * 4.5
+        score += self.count_management_score() *1.2
+        score += self.outcome_score() * 4
         return score

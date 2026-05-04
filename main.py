@@ -1,12 +1,15 @@
 from at_bat import AtBat, Pitch
 from fetcher import load_statcast_csv, build_at_bats, fetch_statcast_api
 from scorer import player_tor, rank_players
+from pybaseball import cache
 import glob
-import pandas as pd 
+import pandas as pd
 
 DATA_SOURCE = "API" 
 
 def main():
+    cache.enable()
+    
     print("Welcome to TOR: True Offensive Rating")
     if DATA_SOURCE == "CSV":
         all_files = glob.glob("statcast_data/*.csv")
@@ -15,7 +18,7 @@ def main():
     
     elif DATA_SOURCE == "API":
         print("Fetching data from Statcast API (this may take a minute)...")
-        df = fetch_statcast_api('2026-04-22', '2026-05-03')
+        df = fetch_statcast_api('2026-04-01', '2026-05-03')
         
     else:
         # This handles the "Possibly Unbound" problem!
