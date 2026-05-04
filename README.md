@@ -57,5 +57,5 @@ TOR addresses this by evaluating what the hitter *did* across the plate appearan
 ## Tech Stack
 
 - **Language:** Python 3.x
-- **Libraries:** Pandas, Matplotlib
+- **Libraries:** Pandas, PyBaseball, Glob
 - **Environment:** VSCode / WSL
