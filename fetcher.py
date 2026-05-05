@@ -24,7 +24,8 @@ def load_statcast_csv(filepath):
     'events',
     'balls',
     'strikes',
-    'game_pk'
+    'game_pk',
+    'bat_speed'
     ]
     df = df[cols_we_need]
     return df
@@ -44,7 +45,8 @@ def build_at_bats(df, batter_name):
                 exit_velo=row['launch_speed'] if pd.notnull(row['launch_speed']) else 0,
                 description=row['description'],
                 balls=row['balls'],
-                strikes=row['strikes']
+                strikes=row['strikes'],
+                bat_speed=row['bat_speed'] if pd.notnull(row['bat_speed']) else 0
             )
             current_ab.add_pitch(p)
             

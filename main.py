@@ -18,15 +18,13 @@ def main():
     
     elif DATA_SOURCE == "API":
         print("Fetching data from Statcast API (this may take a minute)...")
-        df = fetch_statcast_api('2026-04-01', '2026-05-03')
+        df = fetch_statcast_api('2026-04-23', '2026-05-03')
         
     else:
-        # This handles the "Possibly Unbound" problem!
         print(f"Error: Invalid DATA_SOURCE '{DATA_SOURCE}'")
         return 
     print(f"Total rows in CSV: {len(df)}")
 
-        # DIAGNOSTIC: Let's see the top 5 players by row count
     print("Top players by pitch count:")
     print(df['batter_name'].value_counts().head(5))
     print("Example names from the file:")
