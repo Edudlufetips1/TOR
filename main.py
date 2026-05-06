@@ -5,7 +5,7 @@ from pybaseball import cache
 import glob
 import pandas as pd
 
-DATA_SOURCE = "API" 
+DATA_SOURCE = "CSV" 
 
 def main():
     cache.enable()
@@ -18,7 +18,7 @@ def main():
     
     elif DATA_SOURCE == "API":
         print("Fetching data from Statcast API (this may take a minute)...")
-        df = fetch_statcast_api('2026-04-07', '2026-05-03')
+        df = fetch_statcast_api('2026-04-20', '2026-05-06')
         
     else:
         print(f"Error: Invalid DATA_SOURCE '{DATA_SOURCE}'")

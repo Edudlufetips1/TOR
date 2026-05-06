@@ -49,8 +49,10 @@ TOR addresses this by evaluating what the hitter *did* across the plate appearan
 
 - `at_bat.py` — `AtBat` and `Pitch` classes (Core Data Model)
 - `scorer.py` — TOR aggregation and player-level rating logic
-- `fetcher.py` — *(In Development)* Statcast pitch-level data ingestion
-- `main.py` — Simulation entry point and output testing
+- `fetcher.py` — Statcast pitch-level data ingestion and At-Bat construction
+- `main.py` — Entry point for running TOR analysis and leaderboard output
+- `download_data.py` — Statcast data acquisition and local CSV management
+- `statcast_data/` — Local pitch-level data storage *(gitignored)*
 
 ---
 
