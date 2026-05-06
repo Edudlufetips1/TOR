@@ -6,20 +6,15 @@ class Pitch:
         self.strikes = strikes
         self.exit_velo = exit_velo
         self.bat_speed = bat_speed
-
-
+        
 class AtBat:
     def __init__(self, player_name, final_outcome):
         self.player_name = player_name
         self.final_outcome = final_outcome
         self.pitches = []
 
-    # ── Pitch Management ──────────────────────────────────────────────────────
-
     def add_pitch(self, pitch):
         self.pitches.append(pitch)
-
-    # ── Validity ──────────────────────────────────────────────────────────────
 
     def is_valid_ab(self):
         invalid_outcomes = ["hit_by_pitch", "intentional_walk"]
@@ -28,8 +23,6 @@ class AtBat:
         if len(self.pitches) == 0:
             return False
         return True
-
-    # ── Scoring Components ────────────────────────────────────────────────────
 
     def pitch_count_score(self):
         n = len(self.pitches)
@@ -119,8 +112,6 @@ class AtBat:
             "strikeout": -1,
         }
         return outcomes.get(self.final_outcome, 0)
-
-    # ── Aggregator ────────────────────────────────────────────────────────────
 
     def calculate_tor(self):
         if not self.is_valid_ab():
