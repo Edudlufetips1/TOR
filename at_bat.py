@@ -64,21 +64,21 @@ class AtBat:
         for pitch in self.pitches:
             if pitch.description in ("foul", "in_play"):
                 if pitch.exit_velo > 120:
-                    score += 105
+                    score += 70
                 elif pitch.exit_velo > 116:
-                    score += 85
+                    score += 48
                 elif pitch.exit_velo > 111:
-                    score += 65
+                    score += 32
                 elif pitch.exit_velo > 106:
-                    score += 45
+                    score += 20
                 elif pitch.exit_velo > 101:
-                    score += 27
+                    score += 12
                 elif pitch.exit_velo > 95:
-                    score += 10
+                    score += 5
                 elif pitch.exit_velo > 80:
-                    score -= 5
-                elif pitch.exit_velo < 80:
-                    score -= 25
+                    score = 1
+                else:
+                    score = 0
         return score
 
     def bat_speed_score(self):
@@ -86,21 +86,19 @@ class AtBat:
         for pitch in self.pitches:
             if pitch.bat_speed and pitch.description in ("foul", "in_play", "swinging_strike"):
                 if pitch.bat_speed > 84:
-                    base = 70
+                    base = 16
                 elif pitch.bat_speed > 81:
-                    base = 58
+                    base = 12
                 elif pitch.bat_speed > 78:
-                    base = 43
+                    base = 8
                 elif pitch.bat_speed > 75:
-                    base = 25
+                    base = 4
                 elif pitch.bat_speed > 72:
-                    base = 5
+                    base = 2
                 elif pitch.bat_speed > 69:
+                    base = 1
+                else: 
                     base = 0
-                elif pitch.bat_speed > 65:
-                    base = -2
-                else:
-                    base = -6
 
                 if pitch.description == "in_play":
                     score += base
@@ -112,13 +110,13 @@ class AtBat:
 
     def outcome_score(self):
         outcomes = {
-            "home_run": 40,
-            "triple":   20,
-            "double":   12,
-            "single":    4,
+            "home_run": 80,
+            "triple":   58,
+            "double":   20,
+            "single":    5,
             "walk":      3,
             "field_out": 0,
-            "strikeout": -6,
+            "strikeout": -1,
         }
         return outcomes.get(self.final_outcome, 0)
 
@@ -131,7 +129,7 @@ class AtBat:
         score = 50
         score += self.pitch_count_score()      * 1.1
         score += self.count_management_score() * 1.1
-        score += self.quality_contact_score()  * 1.5
-        score += self.bat_speed_score()        * 1.5
-        score += self.outcome_score()          * 1.8
+        score += self.bat_speed_score()        * 1.15
+        score += self.quality_contact_score()  * 1.6
+        score += self.outcome_score()          * 2
         return score

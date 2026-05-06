@@ -14,18 +14,25 @@ def fetch_statcast_api(start_date, end_date):
 
 def load_statcast_csv(filepath):
     df = pd.read_csv(filepath)
-    df['player_name'] = df['player_name'].str.strip()
+
+    if 'batter_name' in df.columns:
+        df['batter_name'] = df['batter_name'].astype(str).str.strip()
+    elif 'player_name' in df.columns:
+        df['batter_name'] = df['player_name'].astype(str).str.strip()
+    else:
+        raise ValueError("CSV file must contain either 'batter_name' or 'player_name'")
+
     cols_we_need = [
-    'player_name',
-    'at_bat_number', 
-    'pitch_number',
-    'launch_speed',
-    'description',
-    'events',
-    'balls',
-    'strikes',
-    'game_pk',
-    'bat_speed'
+        'batter_name',
+        'at_bat_number',
+        'pitch_number',
+        'launch_speed',
+        'description',
+        'events',
+        'balls',
+        'strikes',
+        'game_pk',
+        'bat_speed'
     ]
     df = df[cols_we_need]
     return df
