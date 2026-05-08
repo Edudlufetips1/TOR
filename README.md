@@ -14,7 +14,7 @@ Each At-Bat is modeled as a dynamic sequence rather than a singular result, scor
 
 - **Count Leverage** — progression through favorable and unfavorable count states
 - **Pitch Sequence Depth** — plate appearance length and pitcher workload imposed
-- **Contact Quality** — exit velocity on all contacted pitches, including non-terminal fouls
+- **Contact Quality** — exit velocity and bat speed on all contacted pitches, including non-terminal fouls
 - **Terminal Outcome Value** — result-based contribution, dynamically weighted by outcome informativeness
 
 ---
