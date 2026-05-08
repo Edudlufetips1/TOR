@@ -5,7 +5,7 @@ from pybaseball import cache
 import glob
 import pandas as pd
 
-DATA_SOURCE = "CSV" 
+DATA_SOURCE = "API"
 
 def main():
     cache.enable()

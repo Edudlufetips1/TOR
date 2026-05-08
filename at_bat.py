@@ -43,12 +43,12 @@ class AtBat:
             if pitch.balls > pitch.strikes:
                 score += 0.25
             elif pitch.strikes > pitch.balls:
-                score -= 0.25
+                score -= 0.08
             if pitch.balls == 3 and pitch.strikes == 0 and not milestone30:
-                score += 0.25
+                score += 0.3
                 milestone30 = True
             elif pitch.balls == 3 and pitch.strikes == 1 and not milestone30 and not milestone31:
-                score += 0.25
+                score += 0.22
                 milestone31 = True
         return score
 
@@ -57,19 +57,19 @@ class AtBat:
         for pitch in self.pitches:
             if pitch.description in ("foul", "in_play"):
                 if pitch.exit_velo > 120:
-                    score += 70
+                    score += 175
                 elif pitch.exit_velo > 116:
-                    score += 48
+                    score += 80
                 elif pitch.exit_velo > 111:
-                    score += 32
+                    score += 40
                 elif pitch.exit_velo > 106:
-                    score += 20
+                    score += 24
                 elif pitch.exit_velo > 101:
-                    score += 12
+                    score += 14
                 elif pitch.exit_velo > 95:
-                    score += 5
+                    score += 7
                 elif pitch.exit_velo > 80:
-                    score = 1
+                    score += 2
                 else:
                     score = 0
         return score
@@ -121,6 +121,6 @@ class AtBat:
         score += self.pitch_count_score()      * 1.1
         score += self.count_management_score() * 1.1
         score += self.bat_speed_score()        * 1.15
-        score += self.quality_contact_score()  * 1.6
+        score += self.quality_contact_score()  * 1.4
         score += self.outcome_score()          * 2
         return score
