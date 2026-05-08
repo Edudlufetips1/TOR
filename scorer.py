@@ -20,7 +20,7 @@ def group_by_player(all_at_bats):
 def rank_plate_appearances(all_at_bats):
     return sorted(all_at_bats, key=lambda ab: ab.calculate_tor(), reverse=True)
 
-def rank_players(all_at_bats, min_pas=40):
+def rank_players(all_at_bats, min_pas=300):
     player_map = group_by_player(all_at_bats)
     player_avg = {}
     for name, atbats in player_map.items():
