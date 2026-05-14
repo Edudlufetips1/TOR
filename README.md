@@ -53,11 +53,12 @@ TOR addresses this by evaluating what the hitter *did* across the plate appearan
 - `main.py` — Entry point for running TOR analysis and leaderboard output
 - `download_data.py` — Statcast data acquisition and local CSV management
 - `statcast_data/` — Local pitch-level data storage *(gitignored)*
+- `app.py` - Basic HTML output visualization module
 
 ---
 
 ## Tech Stack
 
 - **Language:** Python 3.x
-- **Libraries:** Pandas, PyBaseball, Glob, os
+- **Libraries:** Pandas, PyBaseball, Glob, os, streamlit
 - **Environment:** VSCode / WSL
